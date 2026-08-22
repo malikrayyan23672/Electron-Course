@@ -3,6 +3,16 @@
 const electron = require('electron')
 
 electron.contextBridge.exposeInMainWorld("electron", {
-    subscribeStatistics: (callback: (statistics: any) => void ) => callback({}),
-    getStaticData: () => console.log('static')
+    subscribeStatistics: (callback: (statistics: any) => void ) => {
+
+        // @ts-ignore
+        electron.ipcRenderer.on("statistics", (_, data) => {
+
+        callback(data)
+
+
+        })
+
+    },
+    getStaticData: () => electron.ipcRenderer.invoke('getStaticData')
 })
