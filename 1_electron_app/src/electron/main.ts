@@ -1,19 +1,21 @@
 import {app, BrowserWindow} from 'electron'
 import path from 'path'
 import { isDev } from './util.js'
+import { pollResources } from './resourceManager.js'
 
 app.on('ready', () => {
 
-    const mainWinndow = new BrowserWindow({
-
+    const mainWindow = new BrowserWindow({
     
     })
 
     if(isDev()){
-        mainWinndow.loadURL("http://localhost:3698")
+        mainWindow.loadURL("http://localhost:3698")
     }else{
-        mainWinndow.loadFile(path.join(app.getAppPath(), "dist-react/index.html"))
+        mainWindow.loadFile(path.join(app.getAppPath(), "dist-react/index.html"))
 
     }
+
+    pollResources();
 
 })
