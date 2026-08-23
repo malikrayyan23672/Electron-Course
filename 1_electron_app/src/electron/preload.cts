@@ -25,6 +25,6 @@ function ipcInvoke<Key extends keyof EventPayloadMapping>(key: Key) : Promise<Ev
 
 function ipcOn<Key extends keyof EventPayloadMapping>(key: Key, callback: (payload: EventPayloadMapping[Key]) => void){
 
-    electron.ipcRenderer.on(key, (_: undefined, payload: Statistics) => callback)
+    electron.ipcRenderer.on(key, (_: undefined, payload: EventPayloadMapping[Key]) => callback(payload))
 
 }
